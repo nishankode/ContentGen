@@ -14,8 +14,7 @@ def main():
 
         # Load email and YouTube handle mappings from the JSON file
         email_handles = {
-            "mdnishan006@gmail.com": ["backstagewithmillionaires", "mreflow"],
-            "mnsn.n006@gmail.com": ["tahirmajithia", "rebelagent1223", "walikhanenglish"]
+            "mdnishan006@gmail.com": ["backstagewithmillionaires", "mreflow"]
         }
 
         recent_videos_dfs = {}
@@ -24,7 +23,7 @@ def main():
         for email, handles in email_handles.items():
             logging.info(f"Fetching videos for handles: {handles} for email: {email}")
 
-            recent_videos_df = scrape_youtube(handles, hours=24)
+            recent_videos_df = scrape_youtube(handles, hours=80)
             logging.info(f"Retrieved {len(recent_videos_df)} videos for {email}")
 
             # Generating the prompt from transcript

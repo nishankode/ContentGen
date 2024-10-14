@@ -3,11 +3,10 @@
 import pandas as pd
 from datetime import datetime, timedelta, timezone
 import scrapetube
-from youtube_transcript_api import YouTubeTranscriptApi
 import logging
-from youtube_scraper_api.working.data import fetch_video_info
-from youtube_scraper_api.working.transcript import fetch_transcript
 import json
+import requests 
+import re 
 
 # Set up logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
@@ -73,30 +72,24 @@ def get_recent_videos_for_handles(handles, hours=24):
     else:
         return pd.DataFrame()  # Return empty DataFrame if no videos found
 
-# def get_video_transcript(video_id):
-#     """Retrieve the transcript for a specific video ID."""
-#     try:
-#         video_transcript_json = YouTubeTranscriptApi.get_transcript(video_id)
-#         return ' '.join([i['text'] for i in video_transcript_json])
-#     except Exception as e:
-#         logging.error(f"Failed to retrieve transcript for {video_id}: {e}")
-#         return None  # Return None if transcript retrieval fails
-    
-def load_api_key_from_json(file_path):
-    with open(file_path, 'r') as file:
-        data = json.load(file)
-        return data['youtube_api_key']
     
 def get_video_transcript(video_id):
-    api_key = load_api_key_from_json('youtube_scraper_api/testing/config.json')
-    details = fetch_video_info(video_id, api_key)
-    transcript = fetch_transcript(video_id)
-    return transcript
+    print(f'https://www.tldwyoutube.com/api/analyze?v={video_id}')
+    r = requests.get(f'https://www.tldwyoutube.com/api/analyze?v={video_id}') 
+    s = r.json()['transcript'] 
+    lst = s.split('\n') 
+    # Cleaning the list 
+    cleaned_list = [line for line in lst if line and not (line[0].isdigit() or "-->" in line)] 
+    
+    # Combine the cleaned lines into a single string 
+    cleaned_string = ' '.join(cleaned_list)
+    return cleaned_string
 
 
-def scrape_youtube(youtube_handles, hours=24):
+def scrape_youtube(youtube_handles, hours=80):
     """Main function to run the video retrieval and transcript collection."""
     recent_videos_df = get_recent_videos_for_handles(youtube_handles, hours)
+    print(recent_videos_df)
     recent_videos_df['videoTranscript'] = recent_videos_df['videoID'].apply(get_video_transcript)
 
     logging.info("Retrieved recent videos and transcripts.")
