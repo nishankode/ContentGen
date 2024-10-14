@@ -74,7 +74,6 @@ def get_recent_videos_for_handles(handles, hours=24):
 
     
 def get_video_transcript(video_id):
-    print(f'https://www.tldwyoutube.com/api/analyze?v={video_id}')
     r = requests.get(f'https://www.tldwyoutube.com/api/analyze?v={video_id}') 
     s = r.json()['transcript'] 
     lst = s.split('\n') 
@@ -89,7 +88,6 @@ def get_video_transcript(video_id):
 def scrape_youtube(youtube_handles, hours=80):
     """Main function to run the video retrieval and transcript collection."""
     recent_videos_df = get_recent_videos_for_handles(youtube_handles, hours)
-    print(recent_videos_df)
     recent_videos_df['videoTranscript'] = recent_videos_df['videoID'].apply(get_video_transcript)
 
     logging.info("Retrieved recent videos and transcripts.")
