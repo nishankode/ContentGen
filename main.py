@@ -17,7 +17,7 @@ def main():
             "mdnishan006@gmail.com": [
                             "bycloudAI", "aiexplained-official", "DwarkeshPatel",
                             "YannicKilcher", "thisdayinai", "WesRoth", "samwitteveenai",
-                            "chrishayuk", "mreflow", "aiadvantage", "TwoMinutePapers", "backstagewithmillionaires
+                            "chrishayuk", "mreflow", "aiadvantage", "TwoMinutePapers", "backstagewithmillionaires"
                             ]
         }
 
