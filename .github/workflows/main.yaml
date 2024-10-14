@@ -1,7 +1,7 @@
 name: Daily Script Execution
 on:
   schedule:
-    - cron: '32 17 * * *'  # Runs at 9:02 PM IST (3:32 PM UTC)
+    - cron: '40 15 * * *'  # Runs at 9:02 PM IST (3:32 PM UTC)
   workflow_dispatch:  # Enables manual triggering
 jobs:
   run-script:
