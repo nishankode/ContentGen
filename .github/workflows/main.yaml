@@ -9,13 +9,20 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
       - name: Set up Python
         uses: actions/setup-python@v5
         with:
           python-version: '3.12'
+
       - name: Install dependencies
         run: |
           pip install -r requirements.txt
+
+      - name: Check OpenAI API connectivity
+        run: |
+          curl -I https://api.openai.com/v1/chat/completions
+
       - name: Run Python Script
         env:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
@@ -23,11 +30,13 @@ jobs:
           GMAIL_APP_PASSWORD: ${{ secrets.GMAIL_APP_PASSWORD }}
         run: |
           python main.py 2>&1 | tee output.log
+
       - name: Display Python script output
         if: always()
         run: |
           echo "Python Script Output:"
           cat output.log
+
       - name: Upload log as artifact
         if: always()
         uses: actions/upload-artifact@v4
