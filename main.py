@@ -35,9 +35,9 @@ def main():
             logging.info(f"Generated Twitter thread prompts for {email}")
             logging.info(str(recent_videos_df.to_dict(orient='records')))
 
-        #     # Uncomment this line to generate the thread using OpenAI
-        #     recent_videos_df['twitterThread'] = recent_videos_df['twitterThreadPrompt'].apply(lambda x : get_openai_completion(x))
-        #     logging.info(f"Generated Twitter threads using OpenAI for {email}")
+            # Uncomment this line to generate the thread using OpenAI
+            recent_videos_df['twitterThread'] = recent_videos_df['twitterThreadPrompt'].apply(lambda x : get_openai_completion(x))
+            logging.info(f"Generated Twitter threads using OpenAI for {email}")
 
         #     # Store the DataFrame with the corresponding email
         #     recent_videos_dfs[email] = recent_videos_df
