@@ -35,18 +35,18 @@ def main():
             logging.info(f"Generated Twitter thread prompts for {email}")
             logging.info(str(recent_videos_df.to_dict(orient='records')))
 
-            # Uncomment this line to generate the thread using OpenAI
-            recent_videos_df['twitterThread'] = recent_videos_df['twitterThreadPrompt'].apply(lambda x : get_openai_completion(x))
-            logging.info(f"Generated Twitter threads using OpenAI for {email}")
+        #     # Uncomment this line to generate the thread using OpenAI
+        #     recent_videos_df['twitterThread'] = recent_videos_df['twitterThreadPrompt'].apply(lambda x : get_openai_completion(x))
+        #     logging.info(f"Generated Twitter threads using OpenAI for {email}")
 
-            # Store the DataFrame with the corresponding email
-            recent_videos_dfs[email] = recent_videos_df
+        #     # Store the DataFrame with the corresponding email
+        #     recent_videos_dfs[email] = recent_videos_df
 
-        # Send the daily email digest for each email and corresponding DataFrame
-        for email, df in recent_videos_dfs.items():
-            logging.info(f"Sending daily digest to {email}")
-            send_daily_digest(df, [email])
-            logging.info(f"Daily digest sent to {email}")
+        # # Send the daily email digest for each email and corresponding DataFrame
+        # for email, df in recent_videos_dfs.items():
+        #     logging.info(f"Sending daily digest to {email}")
+        #     send_daily_digest(df, [email])
+        #     logging.info(f"Daily digest sent to {email}")
 
         logging.info("Script completed successfully")
 
